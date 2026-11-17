@@ -1,0 +1,7 @@
+CAR RENTAL REPORT
+************************************
+CAR NAME: VW Polo
+DAILY RATE: R 189.0
+NUMBER OF DAYS: 7
+TOTAL RENTAL PRICE: R 1521.45
+************************************

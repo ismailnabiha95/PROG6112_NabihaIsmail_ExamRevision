@@ -1,0 +1,5 @@
+com\mycompany\q2gui_wagecalculator\StaffMember.class
+com\mycompany\q2gui_wagecalculator\IPayCalculator.class
+com\mycompany\q2gui_wagecalculator\PayCalculator.class
+com\mycompany\q2gui_wagecalculator\Q2GUI_WageCalculator.class
+com\mycompany\q2gui_wagecalculator\StaffPayCapture.class
