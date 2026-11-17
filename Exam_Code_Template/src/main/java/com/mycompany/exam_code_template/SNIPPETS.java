@@ -32,7 +32,13 @@ SECTIONS
 10  Process (GUI)                     11  events and Clear                   12  capture 5 records
 13  files                             14  unit tests                         15  comments to reuse
 
+// imports (under the package line)
+import javax.swing.JOptionPane;                   // message dialogs
+import java.io.*;                                 // FileWriter, FileReader, BufferedReader, IOException
 
+// WHAT TO CONVERT: only what you calculate with. Names and combo box choices stay Strings.
+// WHAT TO DECLARE: above the try, every variable you give a value inside it and use after it.
+// One line: convert what you calculate with, declare above what you use below.
 // ======================================================================
 // 1. 1D LOOPS: total, average
 // ======================================================================
@@ -303,6 +309,44 @@ public String BestColumnName(String[] colNames, int[][] table)
     int best = PositionOfHighest(totals);
     return colNames[best];
 }
+=============
+Sales over a target:
+==============
+@Override
+public int GetSalesOverTarget()
+{
+    int count = ____;                                      // start at 0, BEFORE both loops
+    for (int row = 0; row < sales.length; row++)           // outer: each row
+    {
+        for (int col = 0; col < sales[row].length; col++)  // inner: each column in this row
+        {
+            if (sales[row][col] ____ TARGET)               // over means greater than: which operator?
+            {
+                count = count + ____;                      // add 1, never the value
+            }
+        }
+    }
+    return count;                                          // after both loops
+}
+
+===============
+Sales under a target
+===============
+@Override
+    public int GetSalesUnderTarget() {
+         int count = 0;                                      // start at 0, BEFORE both loops
+    for (int row = 0; row < Sales.length; row++)           // outer: each row
+    {
+        for (int col = 0; col < Sales[row].length; col++)  // inner: each column in this row
+        {
+            if (Sales[row][col] < TARGET)               // over means greater than: which operator?
+            {
+                count = count + 1;                      // add 1, never the value
+            }
+        }
+    }
+    return count;       
+    }
 
 // ======================================================================
 // 3. DECISIONS: if / else if chain
@@ -566,6 +610,42 @@ public static void main(String[] args)
 }
 
 // ======================================================================
+// 6c. WHEN DOES MAIN NEED A LOOP? (count the results)
+// ======================================================================
+// RULE: ONE number for the whole table (total, average, highest, lowest) = ONE method call, NO loop.
+//       ONE result per item (per agent, per movie, per year)             = a LOOP over the items.
+// The loop that goes through the table lives INSIDE the class method, not in main.
+
+// ---- A. one number for the whole table: no loop ----
+System.out.println("Total tickets sold:   " + ticketSales.TotalTicketSales(sales));     // class method loops inside
+System.out.println("Average per season:   " + Math.round(ticketSales.AverageTicketSales(sales)));   // round for printing only
+System.out.println("Highest season:       " + ticketSales.HighestSale(sales));
+System.out.println("Lowest season:        " + ticketSales.LowestSale(sales));
+
+// ---- B. one result per item: a loop over the names array ----
+double[] totals = new double[agents.length];                   // one box per agent
+for (int row = 0; row < sales.length; row++)                   // one pass per agent
+{
+    totals[row] = agent.EstateAgentSales(sales[row]);          // FILL the box: pass ONE row to the method
+}
+for (int i = 0; i < agents.length; i++)                        // one line per agent
+{
+    System.out.println("Total property sales for " + agents[i] + " = R " + totals[i]);
+}
+
+// ---- C. the table itself: nested loops (print the VALUES) ----
+for (int row = 0; row < sales.length; row++)                   // outer: one line per row
+{
+    System.out.print(rowNames[row] + ": ");                    // row label
+    for (int col = 0; col < sales[row].length; col++)          // inner: values across
+    {
+        System.out.print(sales[row][col] + " ");               // stays on the line
+    }
+    System.out.println();                                      // new line after the inner loop
+}
+// CHECK before you finish: every box you declared (totals) has a line that fills it.
+
+// ======================================================================
 // 7. Q2: FIELDS, IMPORTS, ONE-LINERS
 // ======================================================================
 // class-level fields (top of the form class, under the logger line)
@@ -598,6 +678,11 @@ txtReport.append("line\n");                       // add a line to the text area
 // ======================================================================
 // 8. TRY / CATCH
 // ======================================================================
+
+// WHAT TO CONVERT: only what you calculate with. Names and combo box choices stay Strings.
+// WHAT TO DECLARE: above the try, every variable you give a value inside it and use after it.
+// One line: convert what you calculate with, declare above what you use below.
+
 // try / catch pattern (declare variables BEFORE the try; return stops the method)
 int quantity;
 try
